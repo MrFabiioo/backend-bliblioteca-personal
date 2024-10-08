@@ -1,7 +1,7 @@
 const express = require('express');
-const router = express.Router();
-const BooksService = require('../services/book.service')
 
+const BooksService = require('../services/book.service')
+const router = express.Router();
 const services = new BooksService();
 //--- get books
 
@@ -58,4 +58,4 @@ router.delete('/:id', async(req,res,next)=>{
   }
 });
 
-module.export = router;
+module.exports = router;
