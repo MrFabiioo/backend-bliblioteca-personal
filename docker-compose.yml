@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres:latest
     environment:
-      - POSTGRES_DB=my_store
+      - POSTGRES_DB=my_library
       - POSTGRES_USER=MrFabio
       - POSTGRES_PASSWORD=admin123
     ports:

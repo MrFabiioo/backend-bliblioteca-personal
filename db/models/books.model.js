@@ -13,6 +13,10 @@ const BookSchema={
     allowNull: false,
     type: DataTypes.STRING,
   },
+  image:{
+    type:DataTypes.STRING,
+    allowNull:false,
+  },
   author:{
     allowNull: false,
     type: DataTypes.STRING,
@@ -47,7 +51,7 @@ class Book extends Model {
   //configuracion
   static config(sequelize) {
     return {
-      sequelize, // coneccion con la base de datos
+      sequelize, // conexion con la base de datos
       tableName: BOOK_TABLE, // nombre de la tabla
       modelName: 'Product', // nombre del modelo
       timestamps: false, // creacion de campos por defecto

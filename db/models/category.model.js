@@ -13,6 +13,10 @@ const CategorySchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  image:{
+    type:DataTypes.STRING,
+    allowNull:false,
+  },
   description: {
     allowNull: false,
     type: DataTypes.STRING,
@@ -27,8 +31,8 @@ const CategorySchema = {
 // la clase con el modelo, modelo con las formas con las que se van a relacionar con las demas tablas.
 class Category extends Model {
   static associate(models) {
-    this.hasMany(models.Product, {
-      as: 'products',
+    this.hasMany(models.Books, {
+      as: 'books',
       foreignKey: 'categoryId'
     });
   }
