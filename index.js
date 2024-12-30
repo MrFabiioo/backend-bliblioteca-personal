@@ -1,15 +1,19 @@
 require('dotenv').config();
 const express = require('express');
+const routerApi = require('./routes')
 const app = express();
 const port = process.env.PORT;
 
-console.log(port)
+//console.log(port)
 
 app.get('/', (req, res) => {
-  res.send('Hola mi server en express');
+  res.send('Servidor express ACTIVO');
 });
 
 
 app.listen(port, () => {
-  console.log('Mi port' +  port);
+  console.log('Puerto ' +  port + ' Funcionando');
 });
+
+routerApi(app);
+

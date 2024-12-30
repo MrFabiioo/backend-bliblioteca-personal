@@ -1,6 +1,6 @@
 const express = require('express');
 
-const BooksService = require('../services/book.service')
+const BooksService = require('./../services/book.service');
 const router = express.Router();
 const services = new BooksService();
 //--- get books

@@ -6,8 +6,8 @@ const categoryRouter = require('./category.router');
 function routerApi(app){
   const router = express.Router();
   app.use('/api/v1',router);
-  router.use('books',booksRouter);
-  router.use('category',categoryRouter);
+  router.use('/books',booksRouter);
+  router.use('/category',categoryRouter);
 }
 
-module.export  =  routerApi;
+module.exports  =  routerApi;

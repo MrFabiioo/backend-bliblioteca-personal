@@ -1,6 +1,7 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
-const BOOK_TABLE = "books";
 const {CATEGORY_TABLE} = require('./category.model');
+
+const BOOK_TABLE = "books";
 
 const BookSchema={
   id:{
@@ -53,7 +54,7 @@ class Book extends Model {
     return {
       sequelize, // conexion con la base de datos
       tableName: BOOK_TABLE, // nombre de la tabla
-      modelName: 'Product', // nombre del modelo
+      modelName: 'Books', // nombre del modelo
       timestamps: false, // creacion de campos por defecto
     };
   }

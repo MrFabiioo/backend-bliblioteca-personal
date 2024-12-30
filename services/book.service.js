@@ -1,8 +1,9 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
+
 class BooksService {
   constructor(){
-    this.books = [];
+    //this.books = [];
   }
 
   async create(data){
@@ -50,4 +51,4 @@ class BooksService {
 }
 
 
-module.export =  BooksService;
+module.exports =  BooksService;

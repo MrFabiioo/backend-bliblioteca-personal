@@ -1,6 +1,6 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes,Sequelize } = require('sequelize');
 const CATEGORY_TABLE = 'categories'; // nombre de la tabla
-const {Sequelize} = require('sequelize');
+
 const CategorySchema = {
   // El esquema define la estructura de la BD.
   id: {
