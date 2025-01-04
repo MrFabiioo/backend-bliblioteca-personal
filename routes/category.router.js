@@ -1,7 +1,9 @@
 const express = require('express');
 
-const CategoryService = require('./../services/category.service');
 
+const CategoryService = require('./../services/category.service');
+const validatorHandler = require('./../middlewares/validator.handler');
+const { createCategorySchema  } = require('./../schemas/category.schema');
 
 const router = express.Router();
 const service = new CategoryService();
@@ -28,9 +30,11 @@ router.get('/:id',
 );
 
 router.post('/',
+  validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
+      console.log('Cuerpo recibido:', body); // Agregar para debug
       const newCategory = await service.create(body);
       res.status(201).json(newCategory);
     } catch (error) {
