@@ -1,4 +1,4 @@
-//const boom = require('@hapi/boom');
+const boom = require('@hapi/boom');
 
 const { models }= require('./../libs/sequelize');
 
@@ -19,20 +19,25 @@ class CategoryService {
 
   async findOne(id) {
     const category = await models.Category.findByPk(id, {
-      include: ['products']
+      include: ['books']
     });
+    if (!category) {
+      throw boom.notFound('Category not found')
+    }
     return category;
   }
 
   async update(id, changes) {
-    return {
-      id,
-      changes,
-    };
+    const category = await this.findOne(id);
+    const response = await category.update(changes);
+
+    return {response};
   }
 
   async delete(id) {
-    return { id };
+    const category= await this.findOne(id);
+    await category.destroy();
+    return { id, category};
   }
 
 }

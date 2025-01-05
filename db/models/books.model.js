@@ -47,17 +47,21 @@ const BookSchema={
 class Book extends Model {
   static associate(models) {
     this.belongsTo(models.Category, { as: 'category' });
+    this.hasOne(models.Review, {
+      as: 'review',
+      foreignKey: 'bookId'
+    });
   }
 
-  //configuracion
   static config(sequelize) {
     return {
-      sequelize, // conexion con la base de datos
-      tableName: BOOK_TABLE, // nombre de la tabla
-      modelName: 'Books', // nombre del modelo
-      timestamps: false, // creacion de campos por defecto
+      sequelize,
+      tableName: BOOK_TABLE,
+      modelName: 'Book',
+      timestamps: false,
     };
   }
 }
+
 
 module.exports = { BOOK_TABLE, BookSchema, Book };

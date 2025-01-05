@@ -1,6 +1,8 @@
 const { Model, DataTypes,Sequelize } = require('sequelize');
 const CATEGORY_TABLE = 'categories'; // nombre de la tabla
 
+
+
 const CategorySchema = {
   // El esquema define la estructura de la BD.
   id: {
@@ -31,21 +33,22 @@ const CategorySchema = {
 // la clase con el modelo, modelo con las formas con las que se van a relacionar con las demas tablas.
 class Category extends Model {
   static associate(models) {
-    this.hasMany(models.Books, {
+    console.log(models); // Depura los modelos disponibles
+    this.hasMany(models.Book, {
       as: 'books',
       foreignKey: 'categoryId'
     });
   }
 
-  //configuracion
   static config(sequelize) {
     return {
-      sequelize, // coneccion con la base de datos
-      tableName: CATEGORY_TABLE, // nombre de la tabla
-      modelName: 'Category', // nombre del modelo
-      timestamps: false, // creacion de campos por defecto
+      sequelize,
+      tableName: CATEGORY_TABLE,
+      modelName: 'Category',
+      timestamps: false,
     };
   }
 }
+
 
 module.exports = { CATEGORY_TABLE, CategorySchema, Category };
