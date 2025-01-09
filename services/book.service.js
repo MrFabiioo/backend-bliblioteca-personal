@@ -17,36 +17,23 @@ class BooksService {
   }
 
   async findOne(id){
-    const book = this.products.find(item => item.id === id);
+    const book = await models.Book.findByPk(id);
     if (!book) {
-      console.log('product not found');
-    }
-    if (book.isBlock) {
-      console.log('product is block');
+      throw boom.notFound('Book not found');
     }
     return book;
   }
 
   async update(id, changes){
-    const index = this.books.findIndex(item => item.id === id);
-    if (index === -1) {
-      throw boom.notFound('product not found');
-    }
-    const book = this.products[index];
-    this.boooks[index] = {
-      ...book,
-      ...changes
-    };
-    return this.books[index];
+    const book = await this.findOne(id);
+    const response = await book.update(changes);
+    return response;
   }
 
   async delete(id){
-    const index = this.books.findIndex(item => item.id === id);
-    if (index === -1) {
-      throw boom.notFound('product not found');
-    }
-    this.books.splice(index, 1);
-    return { id };
+    const book = await this.findOne(id);
+    await book.destroy();
+    return id;
   }
 }
 

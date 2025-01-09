@@ -31,7 +31,7 @@ class CategoryService {
     const category = await this.findOne(id);
     const response = await category.update(changes);
 
-    return {response};
+    return response;
   }
 
   async delete(id) {
