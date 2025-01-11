@@ -218,4 +218,9 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/node,windows,macos,linux
 
 /postgres_data
+
 /db/migrations
+
+/db/migrations-old
+
+/db/migrations/20241229161945-unnamed-migration.js

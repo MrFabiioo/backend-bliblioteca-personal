@@ -15,11 +15,23 @@ title:{
 },
 aboutAuthor:{
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
+},
+introduction:{
+  type: DataTypes.TEXT,
+  allowNull: false,
 },
 review:{
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
+},
+conclusion:{
+  type: DataTypes.TEXT,
+  allowNull: false,
+},
+criticism:{
+  type: DataTypes.TEXT,
+  allowNull: false,
 },
 createdAt: {
     allowNull: false,
