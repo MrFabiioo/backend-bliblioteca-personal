@@ -12,7 +12,9 @@ class ReviewService{
     }
 
     async find(){
-        const reviews = await models.Review.findAll();
+        const reviews = await models.Review.findAll({
+            include:['book']
+        });
         return reviews;
     }
 

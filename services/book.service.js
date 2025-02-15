@@ -12,12 +12,16 @@ class BooksService {
   }
 
   async find (){
-    const books = await models.Book.findAll();
+    const books = await models.Book.findAll({
+      include:['category']
+    });
     return books;
   }
 
   async findOne(id){
-    const book = await models.Book.findByPk(id);
+    const book = await models.Book.findByPk(id,{
+      include:['category','review']
+    });
     if (!book) {
       throw boom.notFound('Book not found');
     }
