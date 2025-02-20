@@ -13,6 +13,26 @@ title:{
     allowNull: false,
     type: DataTypes.STRING,
 },
+authorImage:{
+  type:DataTypes.TEXT,
+    allowNull:false,
+},
+bannerImage:{
+  type:DataTypes.TEXT,
+    allowNull:false,
+},
+imageOne:{
+  type:DataTypes.TEXT,
+    allowNull:false,
+},
+imageTwo:{
+  type:DataTypes.TEXT,
+    allowNull:false,
+},
+imageThree:{
+  type:DataTypes.TEXT,
+    allowNull:false,
+},
 aboutAuthor:{
     allowNull: false,
     type: DataTypes.TEXT,
