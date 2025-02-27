@@ -1,11 +1,24 @@
-const express = require('express');
 
+require('dotenv').config();
+const express = require('express');
+//const { requiresAuth } = require('express-openid-connect');
+const {auth, requiredScopes} = require('express-oauth2-jwt-bearer')
 const BooksService = require('./../services/book.service');
 const router = express.Router();
 const services = new BooksService();
 //--- get books
 
-router.get('/',async (req,res)=>{
+// const audience = process.env.AUTH0_AUDIENCE;
+// console.log('aqui esta la audience: '+audience)
+
+const jwtCheck = auth({
+  audience:process.env.AUTH0_AUDIENCE,
+  issuerBaseURL:process.env.AUTH0_ISSUER_BASE_URL,
+})
+
+const checkScopes = requiredScopes(['read:endpoints']);
+
+router.get('/',jwtCheck,checkScopes,async (req,res)=>{
   const books = await services.find();
   res.json(books);
 });
@@ -23,7 +36,7 @@ router.get('/:id', async(req,res,next)=>{
 
 //-- create books
 
-router.post('/',async(req,res,next)=>{
+router.post('/',jwtCheck,checkScopes,async(req,res,next)=>{
   try {
     const body = req.body;
     const newBook = await services.create(body);
@@ -35,7 +48,7 @@ router.post('/',async(req,res,next)=>{
 
 //---- update book with Id
 
-router.patch('/:id', async(req, res,next)=>{
+router.patch('/:id',jwtCheck,checkScopes, async(req, res,next)=>{
   try {
     const {id}= req.params;
     const body = req.body;
@@ -48,7 +61,7 @@ router.patch('/:id', async(req, res,next)=>{
 
 //--- delete book
 
-router.delete('/:id', async(req,res,next)=>{
+router.delete('/:id', jwtCheck,checkScopes,async(req,res,next)=>{
   try {
     const {id}= req.params;
     const book = await services.delete(id);

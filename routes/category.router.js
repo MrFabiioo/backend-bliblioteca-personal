@@ -1,5 +1,5 @@
 const express = require('express');
-
+const {auth, requiredScopes} = require('express-oauth2-jwt-bearer')
 
 const CategoryService = require('./../services/category.service');
 const validatorHandler = require('./../middlewares/validator.handler');
@@ -8,7 +8,14 @@ const { createCategorySchema  } = require('./../schemas/category.schema');
 const router = express.Router();
 const service = new CategoryService();
 
-router.get('/', async (req, res, next) => {
+const jwtCheck = auth({
+  audience:process.env.AUTH0_AUDIENCE,
+  issuerBaseURL:process.env.AUTH0_ISSUER_BASE_URL,
+})
+
+const checkScopes = requiredScopes(['read:endpoints']);
+
+router.get('/',jwtCheck,checkScopes, async (req, res, next) => {
   try {
     const categories = await service.find();
     res.json(categories);
@@ -17,7 +24,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id',
+router.get('/:id',jwtCheck,checkScopes,
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -29,7 +36,7 @@ router.get('/:id',
   }
 );
 
-router.post('/',
+router.post('/',jwtCheck,checkScopes,
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
@@ -43,7 +50,7 @@ router.post('/',
   }
 );
 
-router.patch('/:id',
+router.patch('/:id',jwtCheck,checkScopes,
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -56,7 +63,7 @@ router.patch('/:id',
   }
 );
 
-router.delete('/:id',
+router.delete('/:id',jwtCheck,checkScopes,
   async (req, res, next) => {
     try {
       const { id } = req.params;
