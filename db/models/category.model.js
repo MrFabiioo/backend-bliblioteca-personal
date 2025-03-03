@@ -33,7 +33,6 @@ const CategorySchema = {
 // la clase con el modelo, modelo con las formas con las que se van a relacionar con las demas tablas.
 class Category extends Model {
   static associate(models) {
-    console.log(models); // Depura los modelos disponibles
     this.hasMany(models.Book, {
       as: 'books',
       foreignKey: 'categoryId'

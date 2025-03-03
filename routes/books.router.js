@@ -24,7 +24,7 @@ router.get('/',jwtCheck,checkScopes,async (req,res)=>{
 });
 
 //-- get books for Id
-router.get('/:id', async(req,res,next)=>{
+router.get('/:id',jwtCheck,checkScopes,async(req,res,next)=>{
   try {
     const {id}= req.params;
     const book = await services.findOne(id);
