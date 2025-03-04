@@ -13,7 +13,7 @@ class BooksService {
 
   async find (){
     const books = await models.Book.findAll({
-      include:['category']
+      include:['category','review']
     });
     return books;
   }

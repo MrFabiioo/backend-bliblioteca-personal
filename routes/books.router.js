@@ -8,8 +8,6 @@ const router = express.Router();
 const services = new BooksService();
 //--- get books
 
-// const audience = process.env.AUTH0_AUDIENCE;
-// console.log('aqui esta la audience: '+audience)
 
 const jwtCheck = auth({
   audience:process.env.AUTH0_AUDIENCE,
