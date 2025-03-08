@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const { errorHandler, logErros, boomErrorHandler } = require('./middlewares/error.hadlers');
 const routerApi = require('./routes');
+const serverless = require('serverless-http'); // Convierte Express en una función serverless
 
 const app = express();
 
@@ -20,7 +21,7 @@ const options = {
 };
 app.use(cors(options));
 
-// Elimina rutas separadas y usa solo routerApi
+// Definir rutas
 routerApi(app);
 
 app.use(logErros);
@@ -28,5 +29,6 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 
 // ❌ No usar app.listen() en Vercel  
-// ✔️ Exportar como una función manejadora  
-module.exports = app;
+// ✔️ Exportar como una función manejadora para Serverless  
+
+module.exports = serverless(app);
