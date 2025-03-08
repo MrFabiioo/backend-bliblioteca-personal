@@ -28,7 +28,7 @@ const options = {
 }
 app.use(cors(options));
 
-app.get('/prueba',jwtCheck,requiredScopes, (req, res) => {
+app.get('/prueba',jwtCheck,checkScopes, (req, res) => {
   res.send('Servidor express DE PRUEBA ACTIVO');
  // res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
