@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
+//const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
 const {errorHandler,logErros,boomErrorHandler} = require('./middlewares/error.hadlers');
 const routerApi = require('./routes')
 const app = express();
@@ -9,12 +9,12 @@ const port = process.env.PORT;
 
 app.use(express.json());
 
-const jwtCheck = auth({
-  audience:process.env.AUTH0_AUDIENCE,
-  issuerBaseURL:process.env.AUTH0_ISSUER_BASE_URL,
-  //tokenSigningAlg: "RS256",
-})
-const checkScopes = requiredScopes(['read:endpoints']);
+// const jwtCheck = auth({
+//   audience:process.env.AUTH0_AUDIENCE,
+//   issuerBaseURL:process.env.AUTH0_ISSUER_BASE_URL,
+//   //tokenSigningAlg: "RS256",
+// })
+//const checkScopes = requiredScopes(['read:endpoints']);
 
 const whitelist = ['http://localhost:3000', 'https://myapp.co','http://localhost:5173'];
 const options = {

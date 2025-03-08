@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const {auth, requiredScopes} = require('express-oauth2-jwt-bearer')
 const ReviewService = require('./../services/review.service');
 
 const router = express.Router();
-
 const services = new ReviewService();
 
 const jwtCheck = auth({
@@ -13,50 +13,38 @@ const jwtCheck = auth({
   
   const checkScopes = requiredScopes(['read:endpoints']);
 
-router.get('/', jwtCheck,checkScopes,async(req,res)=>{
-    const reviews = await services.find();
-    res.json(reviews);
-});
+router.use(jwtCheck, checkScopes); 
 
-router.get('/:id', jwtCheck,checkScopes,async(req,res,next)=>{
+router.all('/:id?', async (req, res, next) => {
     try {
-        const {id}= req.params;
-        const review = await services.findOne(id);
-        res.json(review);
+      const { id } = req.params;
+      const body = req.body;
+  
+      switch (req.method) {
+        case 'GET':
+          const review = id ? await services.findOne(id) : await services.find();
+          return res.json(review);
+        
+        case 'POST':
+          const newReview = await services.create(body);
+          return res.status(201).json(newReview );
+        
+        case 'PATCH':
+          if (!id) throw new Error("ID is required for updating a book");
+          const updatedReview  = await services.update(id, body);
+          return res.json(updatedReview );
+        
+        case 'DELETE':
+          if (!id) throw new Error("ID is required for deleting a book");
+          const deletedReview  = await services.delete(id);
+          return res.json(deletedReview );
+        
+        default:
+          res.status(405).json({ message: "Method Not Allowed" });
+      }
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
-
-router.post('/',jwtCheck,checkScopes,async(req,res,next)=>{
-    try {
-        const body = req.body;
-        const newReview = await services.create(body);
-        res.status(201).json(newReview);
-    } catch (error) {
-        next(error);
-    }
-});
-
-router.patch('/:id',jwtCheck,checkScopes,async(req,res,next)=>{
-    try {
-        const {id} = req.params;
-        const body = req.body;
-        const review = await services.update(id,body);
-        res.json(review);
-    } catch (error) {
-        next(error);
-    }
-});
-
-router.delete('/:id', jwtCheck,checkScopes,async (req,res,next) => {
-    try {
-        const {id}=req.params;
-        await services.delete(id);
-        res.status(201).json({id})
-    } catch (error) {
-        next(error);
-    }
-})
+  });
 
 module.exports = router;
