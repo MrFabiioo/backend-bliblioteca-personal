@@ -7,7 +7,7 @@ const setupModels = require('../db/models/');
 // const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`
 const options ={
   dialect: config.dbEngine,
-  logging: config.production? false : console.log
+  logging: config.production? false : true,
 }
 
 if (config.production) {

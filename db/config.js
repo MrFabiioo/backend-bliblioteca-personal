@@ -6,12 +6,12 @@ const { config } = require('../config/config')
 
 module.exports={
   development:{
-    url:config.dbUrl,
+    url: config.dbUrl,
     dialect: config.dbEngine,
   },
   production:{
-    url:dbUrl,
-    dialect:config.dbEngine,
+    url:config.dbUrl,
+    dialect:config.dbEngine ,
     dialectOptions:{
       ssl:{
         rejectUnauthorized:false,
