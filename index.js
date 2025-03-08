@@ -28,7 +28,7 @@ const options = {
 }
 app.use(cors(options));
 
-app.get('/prueba',jwtCheck,checkScopes, (req, res) => {
+app.get('/prueba', (req, res) => {
   res.send('Servidor express DE PRUEBA ACTIVO');
  // res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
@@ -38,9 +38,9 @@ app.get('/prueba',jwtCheck,checkScopes, (req, res) => {
 //   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 // });
 
-app.get('/profile',  (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
-});
+// app.get('/profile',  (req, res) => {
+//   res.send(JSON.stringify(req.oidc.user));
+// });
 
 
 routerApi(app);
