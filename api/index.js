@@ -28,6 +28,10 @@ app.use(logErros);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
+app.get('/prueba',(req, res) => {
+  res.send('Servidor express DE PRUEBA ACTIVO');
+});
+
 // ❌ No usar app.listen() en Vercel  
 // ✔️ Exportar como una función manejadora para Serverless  
 
