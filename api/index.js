@@ -9,7 +9,7 @@ const port = process.env.PORT;
 app.use(express.json());
 
 
-const whitelist = ['https://manager-library.vercel.app','http://localhost:5173'];
+const whitelist = ['https://manager-library.vercel.app','https://biblioteca-personal.vercel.app'];
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {
